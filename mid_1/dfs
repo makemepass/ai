@@ -1,0 +1,34 @@
+def dfs_custom(graph, start_node, target):
+    stack = [start_node]
+    visited = [] 
+    path_to_target = []
+    full_traversal = []
+    found = False
+    while stack:
+        current = stack.pop()
+        if current not in visited:
+            visited.append(current)
+            full_traversal.append(current)
+            if not found:
+                path_to_target.append(current)
+                if current == target:
+                    found = True
+            for neighbor in reversed(graph.get(current, [])):
+                if neighbor not in visited:
+                    stack.append(neighbor)
+    return path_to_target, full_traversal
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F', 'G'],
+    'D': ['B'],
+    'E': ['B'],
+    'F': ['C'],
+    'G': ['C']
+}
+user_input = input("enter target variables in sequence: ")
+targets = list(user_input)
+print(targets)
+path, full = dfs_custom(graph, 'A', targets[1])
+print(*(path))
+print(*(full))
