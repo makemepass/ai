@@ -1,33 +1,40 @@
-def bfs(graph, node, target):
-    queue = [node]
-    visited = [node]
-    path_to_target = []
-    full_traversal = []
-    found = False
-    while queue:
-        current = queue.pop(0)
-        full_traversal.append(current)
-        if not found:
-            path_to_target.append(current)
-            if current == target:
-                found = True
-        for i in graph.get(current, []):
-            if i not in visited:
-                visited.append(i)
-                queue.append(i)
-    return path_to_target, full_traversal
 graph = {
-    'A': ['B', 'C'],
-    'B': ['A', 'D', 'E'],
-    'C': ['A', 'F', 'G'],
-    'D': ['B'],
-    'E': ['B'],
-    'F': ['C'],
-    'G': ['C']
+    'A' : ['B', 'C'],
+    'B' : ['D', 'E'],
+    'C' : ['F', 'G'],
+    'D' : [],
+    'E' : [],
+    'F' : [],
+    'G' : []
 }
-user = input("enter target variables in sequence: ")
-targets = list(user)
-print(targets)
-path, full = bfs(graph, 'A', targets[1])
-print(*(path))
-print(*(full))
+
+target_input = input("Enter target variable in seq: ")
+target2 = list(target_input)
+print(target2)
+
+def bfs(graph, node, target):
+    visited = []
+    queue = []
+    
+    # Initialize BFS
+    queue.append(node)
+    visited.append(node)
+    
+    while queue:
+        # Use pop(0) for BFS (Queue: First-In, First-Out)
+        s = queue.pop(0)
+        print(s, end=" ")
+        
+        # Stop printing if we reached the target
+        if s == target:
+            break
+            
+        for neighbour in graph.get(s, []):
+            if neighbour not in visited:
+                visited.append(neighbour)
+                queue.append(neighbour)
+
+# Loop through each target in your sequence
+for target3 in target2:
+    bfs(graph, 'A', target3)
+    print() # New line for the next search
