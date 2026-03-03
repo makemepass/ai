@@ -1,4 +1,4 @@
-def bfs_custom(graph, node, target):
+def bfs(graph, node, target):
     queue = [node]
     visited = [node]
     path_to_target = []
@@ -25,9 +25,9 @@ graph = {
     'F': ['C'],
     'G': ['C']
 }
-user_input = input("enter target variables in sequence: ")
-targets = list(user_input)
+user = input("enter target variables in sequence: ")
+targets = list(user)
 print(targets)
-path, full = bfs_custom(graph, 'A', targets[1])
+path, full = bfs(graph, 'A', targets[1])
 print(*(path))
 print(*(full))
