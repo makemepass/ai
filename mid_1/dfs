@@ -7,31 +7,23 @@ graph = {
     'F' : [],
     'G' : []
 }
-
 target = input("Enter target variable in seq: ")
 target2 = list(target)
 print(target2)
-
 def dfs(graph, node, target):
     visited = set()
     stack = []
     stack.append(node)
-    
     while stack:
         s = stack.pop()
         print(s, end=" ")
-        
         if s == target:
             break
-            
         if s not in visited:
             visited.add(s)
-            # reversed() ensures we visit B before C to maintain alphabetical order
             for neighbour in reversed(graph[s]):
                 if neighbour not in visited:
                     stack.append(neighbour)
-
-# Loop through each target in the sequence
 for target3 in target2:
     dfs(graph, 'A', target3)
-    print() # Adds a new line after each search path
+    print()
