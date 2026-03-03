@@ -1,42 +1,106 @@
-import random
+import random, sys, time
 
-def print_board(board):
-    for i in range(0, 9, 3):
-        print(f"| {board[i]} | {board[i+1]} | {board[i+2]} |")
-    print()
-def check_winner(board, player):
-    win_conditions = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
-    for condition in win_conditions:
-        if board[condition[0]] == board[condition[1]] == board[condition[2]] == player:
-            return True
-    return False
-def tic_tac_toe():
-    board = [" " for _ in range(9)]
-    print("Which mode you want to play")
-    print("1: Computer vs player")
-    print("2: player vs player")
-    choice = input("Choice: ")
-    print("\nTIC-TAC-TOE")
-    current_player = "X"
-    for turn in range(9):
-        if choice == "1" and current_player == "O":
-            move = random.choice([i for i, x in enumerate(board) if x == " "])
-            board[move] = "O"
-            print(f"Computer turn: {move + 1}")
+n = [j for j in range(1, 10)]
+board = [" " for i in range(9)]
+
+print("TIC-TAC-TOE\n")
+
+def print_board():
+    row1 = '|{}|{}|{}|'.format(board[0], board[1], board[2])
+    row2 = '|{}|{}|{}|'.format(board[3], board[4], board[5])
+    row3 = '|{}|{}|{}|'.format(board[6], board[7], board[8])
+    print(row1)
+    print(row2)
+    print(row3)
+
+print_board()
+
+def player_move(icon):
+    if icon == "x":
+        number = 1
+    elif icon == "o":
+        number = 2
+    print("Your turn player {}".format(number))
+    choice1 = int(input("Enter your move(1-9):").strip())
+    if choice1 > 0 and choice1 <= 9:
+        if board[choice1 - 1] == " ":
+            board[choice1 - 1] = icon
         else:
-            try:
-                move = int(input(f"enter your move (1-9): ")) - 1
-                if board[move] != " ":
-                    print("Spot taken! Try again.")
-                    continue
-                board[move] = current_player
-            except (ValueError, IndexError):
-                print("Invalid input! Enter 1-9.")
-                continue
-        print_board(board)
-        if check_winner(board, current_player):
-            print(f"player ({current_player}) wins.")
-            return
-        current_player = "O" if current_player == "X" else "X"
-    print("It's a draw!")
-tic_tac_toe()
+            print("\nThe space was taken...:(\n")
+            player_move(icon)
+    else:
+        print("Invalid move..please enter again")
+        player_move(icon)
+
+def player_movec(icon):
+    n1 = random.choice(n)
+    if board[n1 - 1] == " ":
+        print("Computer Turn:", n1)
+        time.sleep(1)
+        board[n1 - 1] = icon
+    else:
+        player_movec(icon)
+
+def is_victory(icon):
+    if(board[0] == icon and board[1] == icon and board[2] == icon) or \
+      (board[3] == icon and board[4] == icon and board[5] == icon) or \
+      (board[6] == icon and board[7] == icon and board[8] == icon) or \
+      (board[0] == icon and board[3] == icon and board[6] == icon) or \
+      (board[1] == icon and board[4] == icon and board[7] == icon) or \
+      (board[2] == icon and board[5] == icon and board[8] == icon) or \
+      (board[0] == icon and board[4] == icon and board[8] == icon) or \
+      (board[2] == icon and board[4] == icon and board[6] == icon):
+        return True
+    return False
+
+def is_draw():
+    if " " not in board:
+        return True
+    return False
+
+while True:
+    # Fixed the split string error here
+    print("Which Mode you want to play\n 1.Computer Vs Player \n 2.Player Vs Player")
+    ch = int(input("choice: "))
+    
+    if ch == 1:
+        while True:
+            player_move("x")
+            print_board()
+            if is_victory("x"):
+                print("Player(X) is win.......Congratulations")
+                sys.exit()
+            elif is_draw():
+                print("Its a Draw")
+                sys.exit()
+
+            player_movec("o")
+            print_board()
+            if is_victory("o"):
+                print("Player(O) is win.......Congratulations")
+                sys.exit()
+            elif is_draw():
+                print("Its a Draw")
+                sys.exit()
+
+    elif ch == 2:
+        while True:
+            player_move("x")
+            print_board()
+            if is_victory("x"):
+                print("Player(X) is win.......Congratulations")
+                sys.exit()
+            elif is_draw():
+                print("Its a Draw")
+                sys.exit()
+
+            player_move("o")
+            print_board()
+            if is_victory("o"):
+                print("Player(O) is win.......Congratulations")
+                sys.exit()
+            elif is_draw():
+                print("Its a Draw")
+                sys.exit()
+    else:
+        print("Enter Again")
