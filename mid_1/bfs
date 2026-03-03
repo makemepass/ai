@@ -7,34 +7,23 @@ graph = {
     'F' : [],
     'G' : []
 }
-
 target_input = input("Enter target variable in seq: ")
 target2 = list(target_input)
 print(target2)
-
 def bfs(graph, node, target):
     visited = []
     queue = []
-    
-    # Initialize BFS
     queue.append(node)
     visited.append(node)
-    
     while queue:
-        # Use pop(0) for BFS (Queue: First-In, First-Out)
         s = queue.pop(0)
         print(s, end=" ")
-        
-        # Stop printing if we reached the target
         if s == target:
             break
-            
         for neighbour in graph.get(s, []):
             if neighbour not in visited:
                 visited.append(neighbour)
                 queue.append(neighbour)
-
-# Loop through each target in your sequence
 for target3 in target2:
     bfs(graph, 'A', target3)
-    print() # New line for the next search
+    print() 
