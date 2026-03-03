@@ -11,10 +11,10 @@ def bfs_custom(graph, node, target):
             path_to_target.append(current)
             if current == target:
                 found = True
-        for neighbor in graph.get(current, []):
-            if neighbor not in visited:
-                visited.append(neighbor)
-                queue.append(neighbor)
+        for i in graph.get(current, []):
+            if i not in visited:
+                visited.append(i)
+                queue.append(i)
     return path_to_target, full_traversal
 graph = {
     'A': ['B', 'C'],
