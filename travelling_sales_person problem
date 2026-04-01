@@ -1,0 +1,33 @@
+import heapq
+graph=[
+    [0,10,15,20],
+    [10,0,35,25],
+    [15,35,0,30],
+    [20,25,30,0]
+]
+n=len(graph)
+def heuristic(visited):
+    unvisited=[i for i in range(n) if i not in visited]
+    if not unvisited:
+        return 0
+    min_edge=min([graph[i][j] for i in range(n) for j in range(n) if i!=j])
+    return min_edge*len(unvisited)
+def tsp_a_star():
+    start=0
+    pq=[]
+    heapq.heappush(pq,(0,0,start,[start]))
+    while pq:
+        f,g,current,path=heapq.heappop(pq)
+        if len(path)==n:
+            total_cost=g+graph[current][start]
+            return path+[start],total_cost
+        for city in range(n):
+            if city not in path:
+                new_g=g+graph[current][city]
+                new_path=path+[city]
+                h=heuristic(new_path)
+                new_f=new_g+h
+                heapq.heappush(pq,(new_f,new_g,city,new_path))
+path,cost=tsp_a_star()
+print("optimal path: ",path)
+print("Minimum cost: ",cost)
