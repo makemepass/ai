@@ -1,0 +1,32 @@
+def water_jug_bfs(j1, j2, goal):
+    start = (0, 0)
+    queue = [(start, [])]
+    visited = set()
+    while queue:
+        (x, y), path = queue.pop(0)
+        if (x, y) in visited:
+            continue
+        visited.add((x, y))
+        current_path = path + [(x, y)]
+        if x == goal or y == goal:
+            print("Goal Achieved!")
+            print("steps:")
+            for state in current_path:
+                print(state)
+            return
+        next_states = [
+            (j1, y),
+            (x, j2),
+            (0, y),
+            (x, 0),
+            (0, x + y) if x + y <= j2 else (x - (j2 - y), j2),
+            (x + y, 0) if x + y <= j1 else (j1, y - (j1 - x))
+        ]
+        for state in next_states:
+            if state not in visited:
+                queue.append((state, current_path))
+    print("NO solution")
+j1 = int(input("capacity of jug 1: "))
+j2 = int(input("capacity of jug 2: "))
+goal = int(input("Goal amount: "))
+water_jug_bfs(j1, j2, goal)
