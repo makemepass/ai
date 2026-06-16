@@ -1,10 +1,5 @@
 def tower_of_hanoi(num, source, aux, target):
-    """
-	num (int): Number of disks.
-    source (str): The name of the source tower.
-    aux (str): The name of the auxiliary tower.
-    target (str): The name of the target tower.
-    """
+    
     if num == 1:
         print(f"Move disk 1 from {source} to {target}")
         return
