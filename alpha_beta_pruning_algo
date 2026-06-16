@@ -6,7 +6,7 @@ def alphabeta(depth,nodeIndex,maximizingPlayer,values,alpha,beta):
         best=-math.inf
         for i in range(2):
             val=alphabeta(depth+1,nodeIndex*2+i,False,values,alpha,beta)
-            #print("Max Value:", val)
+            print("Max Value:", val)
             best=max(best,val)
             alpha=max(alpha,best)
             if beta<=alpha:
@@ -17,7 +17,7 @@ def alphabeta(depth,nodeIndex,maximizingPlayer,values,alpha,beta):
         best=math.inf
         for i in range(2):
             val=alphabeta(depth+1,nodeIndex*2+i,True,values,alpha,beta)
-            #print("Min Value:",val)
+            print("Min Value:",val)
             best=min(best,val)
             beta=min(beta,best)
             if beta<=alpha:
